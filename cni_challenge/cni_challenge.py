@@ -17,7 +17,8 @@ sys.path.append(os.path.dirname(__file__))
 # import the Chris app superclass
 from chrisapp.base import ChrisApp
 # Import a python function that performs a matrix rotation
-from example_python.rotate import rotate_matrix
+#from example_python.rotate import rotate_matrix
+from mycode.predict_CNI import predict_CNI
 
 Gstr_title = """
 
@@ -83,11 +84,6 @@ Gstr_synopsis = """
         <outputDir>
         Mandatory. A directory where output will be saved to. Must be universally writable to.
         
-        [--run_option < python || C >]
-        Mandatory for bare bones example. C example still to come!
-        
-        [--rot <matrix_file.txt>]
-        Mandatory for bare bones example. String of file containing rotation matrices.
 
         [-h] [--help]
         If specified, show help message and exit.
@@ -160,13 +156,6 @@ class Cni_challenge(ChrisApp):
         Use self.add_argument to specify a new app argument.
         """
 
-        # To pass in a string
-        self.add_argument('--rot', dest='rot', type=str, optional=False,
-                          help='Type string: Name of file containing rotation matrix')
-
-        self.add_argument('--run_option', dest='run_option', type=str, optional=False,
-                      help='Type string: Define which code to run: python || C')
-
 
     def run(self, options):
         """
@@ -179,39 +168,26 @@ class Cni_challenge(ChrisApp):
         # ===============================================
         # Initialising variables
         # ===============================================
-        input_data_name = 'vectors.txt'                                     # Text file of vectors
+        #input_data_name = 'vectors.txt'                                     # Text file of vectors
         output_classification_name = 'classification.txt'                   # Output text file of rotated vectors
 
         # Input and output files must be in 'inputdir' and 'outputdir', respectively.
-        str_rotation_matrix = '%s/%s' % (options.inputdir, options.rot)     # File containing rotation matrices
-        str_vectors = '%s/%s' % (options.inputdir, input_data_name)
+        #str_rotation_matrix = '%s/%s' % (options.inputdir, options.rot)     # File containing rotation matrices
+        #str_vectors = '%s/%s' % (options.inputdir, input_data_name)
         out_str= '%s/%s' % (options.outputdir, output_classification_name)
 
         # ===============================================
         # Call code
         # ===============================================
-        if (options.run_option == 'python'):
 
-            # Call python module
-            print("\n")
-            print("\tCalling python code to perform vector rotations...")
-            rotate_matrix(str_rotation_matrix, str_vectors, out_str)
-            print ("\tOutput will be in %s" % out_str)
-            print("====================================================================================")
+        print("\n")
+        #print("\tCalling python code to perform vector rotations...")
+        #rotate_matrix(str_rotation_matrix, str_vectors, out_str)
+        print("\tCalling prediction code...")
+        predict_CNI(options.inputdir,out_str)
+        print ("\tOutput will be in %s" % out_str)
+        print("====================================================================================")
 
-        elif (options.run_option == 'C'):
-
-            # Call C example
-            print("\n")
-            print("\tC example to come....\n")
-            print("====================================================================================")
-        else:
-
-            print("\n")
-            sys.stderr.write('\tUnrecognised --run_option encountered. Note input is case-sensitive\n')
-            print("====================================================================================")
-            print(Gstr_synopsis)
-            sys.exit()
 
     def show_man_page(self):
         """

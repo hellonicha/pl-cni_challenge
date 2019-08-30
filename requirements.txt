@@ -1,3 +1,5 @@
 chrisapp
 pudb
 numpy
+tensorflow
+keras
