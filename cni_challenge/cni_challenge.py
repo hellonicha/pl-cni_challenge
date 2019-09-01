@@ -170,11 +170,13 @@ class Cni_challenge(ChrisApp):
         # ===============================================
         #input_data_name = 'vectors.txt'                                     # Text file of vectors
         output_classification_name = 'classification.txt'                   # Output text file of rotated vectors
+        output_scores_name = 'scores.txt'
 
         # Input and output files must be in 'inputdir' and 'outputdir', respectively.
         #str_rotation_matrix = '%s/%s' % (options.inputdir, options.rot)     # File containing rotation matrices
         #str_vectors = '%s/%s' % (options.inputdir, input_data_name)
         out_str= '%s/%s' % (options.outputdir, output_classification_name)
+        out_scores = '%s/%s' % (options.outputdir, output_scores_name)
 
         # ===============================================
         # Call code
@@ -184,7 +186,7 @@ class Cni_challenge(ChrisApp):
         #print("\tCalling python code to perform vector rotations...")
         #rotate_matrix(str_rotation_matrix, str_vectors, out_str)
         print("\tCalling prediction code...")
-        predict_CNI(options.inputdir,out_str)
+        predict_CNI(options.inputdir,out_str,out_scores)
         print ("\tOutput will be in %s" % out_str)
         print("====================================================================================")
 

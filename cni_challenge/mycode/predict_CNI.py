@@ -61,7 +61,7 @@ def read_CNI_data(datadir,datafile):
 
     return X, demo
 
-def predict_CNI(inputdir,outputname):
+def predict_CNI(inputdir,outputname,scoresname):
 
     dirname = os.path.dirname(os.path.abspath(__file__))
 
@@ -107,6 +107,7 @@ def predict_CNI(inputdir,outputname):
     p_seqs = np.zeros((len(models),len(X_test)))
     print(models)
     for m in range(len(models)):
+        print('Evaluating model', str(m))
         model = load_model(models[m])
         p = model.predict([X_test, demo_test])
 
@@ -123,3 +124,4 @@ def predict_CNI(inputdir,outputname):
     final_class = p_sub_ens > 0.5
     print(sum(final_class))
     np.savetxt(outputname,final_class,fmt='%d')
+    np.savetxt(scoresname,p_sub_ens,fmt='%f')
