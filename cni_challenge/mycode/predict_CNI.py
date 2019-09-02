@@ -49,6 +49,7 @@ def read_CNI_data(datadir,datafile):
     X = np.empty((len(subdirs), 1), dtype=np.object)
     demo = np.zeros((len(subdirs),4))
     for i in range(len(subdirs)):
+        print(subdirs[i])
         ts = genfromtxt(os.path.join(datadir,subdirs[i],datafile),delimiter=',')
         X[i,0] = standardize(ts.transpose())
 
