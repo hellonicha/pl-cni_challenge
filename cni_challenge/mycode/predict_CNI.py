@@ -45,7 +45,7 @@ def standardize(timeseries):
 
 def read_CNI_data(datadir,datafile):
 
-    subdirs = next(os.walk(datadir))[1]
+    subdirs = sorted(next(os.walk(datadir))[1])
     X = np.empty((len(subdirs), 1), dtype=np.object)
     demo = np.zeros((len(subdirs),4))
     for i in range(len(subdirs)):
