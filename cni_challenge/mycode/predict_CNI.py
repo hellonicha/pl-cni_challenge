@@ -114,7 +114,7 @@ def predict_CNI(inputdir,outputname,scoresname):
 
         p_sub = np.zeros(len(sinds))
         for s in range(len(sinds)):
-            p_sub[s] = np.mean(p[subind==sinds[s]])
+            p_sub[s] = np.mean(p[subind==sinds[s]] > 0.5)
         p_seqs[m, :] = np.squeeze(p)
         p_subs[m, :] = p_sub
 
